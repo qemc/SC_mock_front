@@ -1,10 +1,14 @@
 import React from "react";
 import './styles/Home.scss'
+import Events from "./Events";
 
 
 const Home = () => {
     return ( 
-        <h1>template works</h1>
+        <div>
+            <h1>template works</h1>
+            <Events/>
+        </div>
      );
 }
  
