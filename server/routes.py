@@ -27,7 +27,8 @@ def home():
         "month_number": month_number,
         "day_month_number": day_month_number,
         "day_week_number": day_week_number,
-        "year": year
+        "year": year,
+        "user_id":1
     })
 
 @app.route('/event',methods=['POST'])

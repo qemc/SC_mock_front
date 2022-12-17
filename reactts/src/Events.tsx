@@ -1,5 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext, createContext } from "react";
+import{ InfoProvider, UserContextData, UserContext }from "./GetUser";
 import api from "./Api";
+
+
 
 type Events = {
     names: {
@@ -20,26 +23,24 @@ type Events = {
 const Events = () => {
 
     const [events, setEvents] = useState<Events[]>([])
-
+    const userInfo = useContext(UserContext);
 
     useEffect(() => {
         try {
-          api.get(`/get_events/${1}/${50}`).then((response) => {
-            setEvents(response.data)
+          api.get(`/get_events/${1}/${50}`).then((response:any) => {
+            setEvents(response.data)    
           })
         } catch (error) {
           console.log(error)
         }
       }, [])
 
-      console.log(events)
+      console.log(userInfo)
 
     return ( 
-
-        <div className="container">
+      <div className="container">
             {/* map to be continiued */}
-       </div>
-
+      </div>
      );
 }
  
