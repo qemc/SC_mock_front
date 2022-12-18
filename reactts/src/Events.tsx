@@ -21,27 +21,37 @@ type Events = {
 }
 
 const Events = () => {
+  const [events, setEvents] = useState<Events[]>([]);
+  const userInfo = useContext(UserContext);
+  const [ww, setWw] = useState(userInfo?.week_number);
 
-    const [events, setEvents] = useState<Events[]>([])
-    const userInfo = useContext(UserContext);
+  useEffect(() => {
+    setWw(userInfo?.week_number);
+  }, [userInfo]);
 
-    useEffect(() => {
-        try {
-          api.get(`/get_events/${1}/${50}`).then((response:any) => {
-            setEvents(response.data)    
-          })
-        } catch (error) {
-          console.log(error)
-        }
-      }, [])
+  useEffect(() => {
+    try {
+      api.get(`/get_events/${1}/${50}`).then((response: any) => {
+        setEvents(response.data);
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
 
-      console.log(userInfo)
 
-    return ( 
-      <div className="container">
-            {/* map to be continiued */}
-      </div>
-     );
-}
- 
+  const updateWeek = ()=>{
+    setWw(Number(ww)+1)
+    console.log(ww)
+  }
+
+  //console.log(ww);
+
+  return (
+    <div className="container">
+      <button onClick={updateWeek}>update_week</button>
+      {/* map to be continued */}
+    </div>
+  );
+};
 export default Events;

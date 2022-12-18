@@ -5,11 +5,9 @@ import { InfoProvider } from "./GetUser";
 const Router = () => {
     return ( 
         <InfoProvider>
-        <Routes>
-            
+            <Routes>
                 <Route path="/" element={<Home/>}/>
-            
-        </Routes>
+            </Routes>
         </InfoProvider>
      );
 }

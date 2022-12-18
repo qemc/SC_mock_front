@@ -10,25 +10,43 @@ export type UserContextData = {
   year:number
 }
 
-export const UserContext = createContext<UserContextData|null>(null);
+export const UserContext = createContext<UserContextData|null>({
+  day_month_number: 0,
+  day_week_number: 0,
+  month_number: 0,
+  user_id: 0,
+  week_number: 0,
+  year: 0
+});
 
-type Props = {
-  children: React.ReactNode;
-}
+// type Props = {
+//   children: React.ReactNode;
+// }
 
-export const InfoProvider: FunctionComponent<Props> = ({ children }: Props) => {
-  const [userInfo, setUserInfo] = useState<UserContextData|null>(null);
+export const InfoProvider: FunctionComponent<any> = ({ children }: any) => {
+
+  const [userInfo, setUserInfo] = useState<UserContextData|null>({
+    day_month_number: 0,
+    day_week_number: 0,
+    month_number: 0,
+    user_id: 0,
+    week_number: 0,
+    year: 0
+  });
 
   useEffect(() => {
     try {
-      api.get('/').then((response:any) => {
-        setUserInfo(response.data)    
-      })
+      api.get('/').then((response) => {
+        if (response.status === 200) {
+          setUserInfo(response.data);
+        } else {
+          console.error(`Error fetching user data: ${response.status}`);
+        }
+      });
     } catch (error) {
-      console.log(error)
+      console.error(`Error fetching user data: ${error}`);
     }
-  }, [])
-
+  }, []);
 
   return (
     <UserContext.Provider value={userInfo}>
